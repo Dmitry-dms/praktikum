@@ -1,18 +1,77 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="hello" v-if="systems.length === 0">
+      <h1>Не найдено ни одной экспертной системы, создайте новую</h1>
+      <my-button @click="$router.push('/exp')" class="hello__btn">Создать</my-button>
+    </div>
+
+    <systems v-else @addSystem="addSystem" @deleteSystem="deleteSystem" :systems="systems"/>
   </div>
 </template>
 
 <script>
+
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+import MyButton from "../components/UI/MyButton.vue";
+import Systems from './Systems.vue';
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    MyButton,
+    Systems,
+
+  },
+  data() {
+    return {
+      systems: [
+        {
+          name: "test1",
+        },
+      ],
+      clearES: [
+        {
+          id: new Date().getTime(),
+          pos: 1,
+          condition: "",
+          result: "",
+        },
+      ],
+    };
+  },
+  methods: {
+   deleteSystem(event) {
+      console.log(event);
+      this.systems = this.systems.filter((p) => {
+        return p.id !== event.id;
+      });
+    },
+    addSystem(event) {
+     
+      this.systems.push(event)
+    },
+  },
+};
 </script>
+
+<style scoped>
+
+.home {
+  margin: 0 auto;
+  align-content: center;
+  align-items: center;
+}
+.hello {
+  margin: 50vh auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+h1 {
+  margin: 0;
+}
+.hello__btn {
+  margin-left: 40px;
+}
+</style>
