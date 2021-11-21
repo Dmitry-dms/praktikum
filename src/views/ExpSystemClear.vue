@@ -1,7 +1,9 @@
 <template>
   <div class="exp__system">
     <div class="name">
-      <h3>{{ system.name }}</h3>
+      <h3>Введите название:</h3>
+      <my-input class="head__input" style="width: 50%" v-model:value="this.system.name" />
+      <my-button class="add__btn" @click="addSystem">Save</my-button>
     </div>
     <div class="head">
       <h3 style="margin-left: 50px">Условия</h3>
@@ -20,19 +22,20 @@ export default {
   components: { EsList },
   data() {
     return {
-      system: {},
+      system: {
+        id: "",
+        name: "",
+        rows: [
+          {
+            id: new Date().getTime(),
+            pos: 1,
+            condition: "",
+            result: "",
+          },
+        ],
+      },
     };
   },
-  beforeMount() {
-    let s = this.$store.getters.getSystems;
-    let id = Number(this.$route.params.id);
-    s.forEach((element) => { 
-      if (element.id === id) {
-        this.system = element;
-      }
-    });
-  },
-
   methods: {
     addRow(event) {
       let newObj = {
@@ -42,6 +45,11 @@ export default {
         result: event.result,
       };
       this.system.rows.push(newObj);
+    },
+    addSystem() {
+      this.system.id = new Date().getTime();
+      this.$store.commit("addSystem", this.system);
+      this.$router.push('/')
     },
     deleteRow(event) {
       if (this.system.rows.length !== 1) {
@@ -64,8 +72,18 @@ export default {
 </script>
 
 <style>
+.head__input {
+  height: 30px;
+  margin-left: 40px;
+}
+.add__btn {
+  margin-left: 20px;
+  height: 40px;
+}
 .name {
-  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
 .head {
   display: flex;

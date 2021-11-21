@@ -2,18 +2,36 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    isActive: false,
+    systems: [
+      // {
+      //   name: 'test1',
+      //   id: new Date().getTime(),
+      //   rows: [
+      //     {
+      //       pos: 0,
+      //       condition: '',
+      //       result: ''
+      //     }
+      //   ]
+      // }
+    ]
   },
+  //computed св-ва
   getters: {
-    getNavbarState(state) {
-      return state.isActive
+    getSystems(state) {
+      return state.systems
     }
   },
+  //изменение состояний
   mutations: {
-    changeIsActive(state) {
-      state.isActive = !state.isActive
+    addSystem(state, system) {
+      state.systems.push(system)
+    },
+    deleteSystem(state, system) {
+      state.systems = state.systems.filter(s => s.id !== system.id)
     }
   },
+  //получение данных с сервера -> мутация -> изменение state
   actions: {
   },
   modules: {

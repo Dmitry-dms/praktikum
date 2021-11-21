@@ -1,7 +1,7 @@
 <template>
   <div class="head">
     <h3 style="margin-left: 50px">Существующие системы</h3>
-    <my-button @click="addSystem" class="add__btn">Add</my-button>
+    <my-button @click="$router.push('/exp-add-new')" class="add__btn">Add</my-button>
   </div>
   <div class="divider">
     <hr class="solid" />

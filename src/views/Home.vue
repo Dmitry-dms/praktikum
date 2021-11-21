@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <div class="hello" v-if="systems.length === 0">
+    <div class="hello" v-if="$store.getters.getSystems.length === 0">
       <h1>Не найдено ни одной экспертной системы, создайте новую</h1>
-      <my-button @click="$router.push('/exp')" class="hello__btn">Создать</my-button>
+      <my-button @click="$router.push('/exp-add-new')" class="hello__btn">Создать</my-button>
     </div>
 
-    <systems v-else @addSystem="addSystem" @deleteSystem="deleteSystem" :systems="systems"/>
+    <systems v-else @addSystem="addSystem" @deleteSystem="deleteSystem" :systems="$store.getters.getSystems"/>
   </div>
 </template>
 
@@ -21,23 +21,10 @@ export default {
   components: {
     MyButton,
     Systems,
-
   },
   data() {
     return {
-      systems: [
-        {
-          name: "test1",
-        },
-      ],
-      clearES: [
-        {
-          id: new Date().getTime(),
-          pos: 1,
-          condition: "",
-          result: "",
-        },
-      ],
+      //systems: this.$store.getters.getSystems,
     };
   },
   methods: {

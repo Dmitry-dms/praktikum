@@ -1,12 +1,13 @@
 <template>
   <div class="system">
-    <div class="system__inside">
+    <div class="system__inside" @click="$router.push(`/systems/${system.id}`)">
       <h3>{{ system.name }}</h3>
     </div>
 
-    <my-button @click="$emit('deleteSystem', system)" class="system__btns"
+    <my-button @click="$store.commit('deleteSystem',system)" class="system__btns">Delete</my-button> 
+    <!-- <my-button @click="$emit('deleteSystem', system)" class="system__btns"
       >Delete</my-button
-    >
+    > -->
     <!-- <div class="system__btns">
         <my-button @click="$emit('remove',system)">Удалить</my-button>
         <my-button @click="$router.push(`/systems/${system.id}`)">Открыть</my-button>
