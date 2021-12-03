@@ -2,6 +2,7 @@
   <div class="exp__system">
     <div class="name">
       <h3>{{ system.name }}</h3>
+     
     </div>
     <div class="head">
       <h3 style="margin-left: 50px">Условия</h3>
@@ -16,11 +17,13 @@
 
 <script>
 import EsList from "../components/ESList.vue";
+import MyButton from '../components/UI/MyButton.vue';
 export default {
-  components: { EsList },
+  components: { EsList, MyButton },
   data() {
     return {
       system: {},
+      conditions: ""
     };
   },
   beforeMount() {
@@ -34,6 +37,7 @@ export default {
   },
 
   methods: {
+   
     addRow(event) {
       let newObj = {
         id: event.id,

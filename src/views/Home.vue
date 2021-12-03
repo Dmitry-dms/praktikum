@@ -1,5 +1,8 @@
 <template>
-  <div class="home">
+  <div v-if="$store.getters.getAuth === false"   class="auth">
+    <auth/>
+  </div>
+  <div v-else class="home">
     <div class="hello" v-if="$store.getters.getSystems.length === 0">
       <h1>Не найдено ни одной экспертной системы, создайте новую</h1>
       <my-button @click="$router.push('/exp-add-new')" class="hello__btn">Создать</my-button>
@@ -14,6 +17,7 @@
 // @ is an alias to /src
 
 import MyButton from "../components/UI/MyButton.vue";
+import Auth from './Auth.vue';
 import Systems from './Systems.vue';
 
 export default {
@@ -21,6 +25,7 @@ export default {
   components: {
     MyButton,
     Systems,
+    Auth,
   },
   data() {
     return {
