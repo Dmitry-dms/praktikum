@@ -1,7 +1,7 @@
 <template>
   <div class="system">
-    <div class="system__inside" @click="$router.push(`/systems/${system.id}`)">
-      <h3>{{ system.name }}</h3>
+    <div class="system__inside" @click="$router.push(`/systems/${system.Id}`)">
+      <h3>{{ system.Name }}</h3>
     </div>
 
     <my-button @click="$store.commit('deleteSystem',system)" class="system__btns">Delete</my-button> 

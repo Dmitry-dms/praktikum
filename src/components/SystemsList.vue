@@ -3,7 +3,7 @@
   <transition-group name="systems-list">
     <systems-row
       v-for="system in systems"
-      :key="system.id"
+      :key="system.Id"
       :system="system"
       @updateSystem="$emit('updateSystem', system)"
       @deleteSystem="$emit('deleteSystem', system)"
@@ -32,7 +32,7 @@ export default {
   methods: {
     // addsystem() {
     //   let newObj = {
-    //     id : (new Date()).getTime(),
+    //     Id : (new Date()).getTime(),
     //     pos: this.systems.length + 1,
     //     condition: "",
     //     result: "",

@@ -36,7 +36,7 @@ export default {
    deleteSystem(event) {
       console.log(event);
       this.systems = this.systems.filter((p) => {
-        return p.id !== event.id;
+        return p.Id !== event.Id;
       });
     },
     addSystem(event) {

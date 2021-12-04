@@ -18,10 +18,10 @@ export default {
   methods: {
     addSystem() {
       let newSyst = {
-        id: this.uuidv4(),
-        name: "",
+        Id: this.uuidv4(),
+        Name: "",
       };
-      http.post("http://");
+     
       //отправить на сервер
       this.$emit("addSystem", newSyst);
     },

@@ -3,7 +3,7 @@
   <transition-group name="rows-list">
     <es-row
       v-for="row in rows"
-      :key="row.id"
+      :key="row.Id"
       :row="row"
       @update="$emit('update', row)"
       @delete="$emit('delete', row)"
@@ -30,14 +30,12 @@ export default {
   },
   methods: {
     addRow() {
-      let id = this.uuidv4();
-      console.log(id);
-      console.log(this.rows)
+      let Id = this.uuidv4();
       let newObj = {
-        id: id,
-        pos: this.rows.length + 1,
-        condition: "",
-        result: "",
+        Id: Id,
+        Position: this.rows.length + 1,
+        Condition: "",
+        Result: "",
       };
       this.$emit("addRow", newObj);
     },

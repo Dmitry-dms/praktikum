@@ -1,11 +1,11 @@
 <template>
   <div class="row">
     <div class="row__inside">
-      <strong class="id"> {{ row.pos }}</strong>
+      <strong class="id"> {{ row.Position }}</strong>
       <div class="inputs">
-        <my-input v-model:value="row.condition" />
+        <my-input v-model:value="row.Condition" />
         <my-input
-          v-model:value="row.result"
+          v-model:value="row.Result"
           style="width: 30%; margin-left: 20px"
         />
       </div>

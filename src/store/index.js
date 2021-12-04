@@ -48,7 +48,7 @@ export default createStore({
       state.systems.push(system)
     },
     deleteSystem(state, system) {
-      state.systems = state.systems.filter(s => s.id !== system.id)
+      state.systems = state.systems.filter(s => s.Id !== system.Id)
     },
     changeAuth(state) {
       state.isAuth = !state.isAuth

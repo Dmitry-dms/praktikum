@@ -2,7 +2,7 @@
   <div class="exp__system">
     <div class="name">
       <h3>Введите название:</h3>
-      <my-input class="head__input" style="width: 50%" v-model:value="this.system.name" />
+      <my-input class="head__input" style="width: 50%" v-model:value="this.system.Name" />
       <my-button class="add__btn" @click="addSystem">Save</my-button>
     </div>
     <div class="head">
@@ -12,7 +12,7 @@
     <div class="divider">
       <hr class="solid" />
     </div>
-    <es-list @addRow="addRow" @delete="deleteRow" :rows="system.rows" />
+    <es-list @addRow="addRow" @delete="deleteRow" :rows="system.Rules" />
   </div>
 </template>
 
@@ -23,14 +23,14 @@ export default {
   data() {
     return {
       system: {
-        id: "",
-        name: "",
-        rows: [
+        Id: "",
+        Name: "",
+        Rules: [
           {
-            id: this.uuidv4(),
-            pos: 1,
-            condition: "",
-            result: "",
+            Id: this.uuidv4(),
+            Position: 1,
+            Condition: "",
+            Result: "",
           },
         ],
       },
@@ -39,12 +39,12 @@ export default {
   methods: {
     addRow(event) {
       let newObj = {
-        id: event.id,
-        pos: event.pos,
-        condition: event.condition,
-        result: event.result,
+        Id: event.Id,
+        Position: event.Position,
+        Condition: event.Condition,
+        Result: event.Result,
       };
-      this.system.rows.push(newObj);
+      this.system.Rules.push(newObj);
     },
     uuidv4() {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -55,19 +55,19 @@ export default {
       );
     },
     addSystem() {
-      this.system.id = this.uuidv4();
+      this.system.Id = this.uuidv4();
       this.$store.commit("addSystem", this.system);
       this.$router.push('/')
     },
     deleteRow(event) {
-      if (this.system.rows.length !== 1) {
+      if (this.system.Rules.length !== 1) {
         let ch = false;
-        this.system.rows = this.system.rows.filter((p) => {
-          if (p.id !== event.id) {
+        this.system.Rules = this.system.Rules.filter((p) => {
+          if (p.Id !== event.Id) {
             if (ch === true) {
-              p.pos = p.pos - 1;
+              p.Position = p.Position - 1;
             }
-            return p.id !== event.id;
+            return p.Id !== event.Id;
           } else {
             ch = true;
             return false;

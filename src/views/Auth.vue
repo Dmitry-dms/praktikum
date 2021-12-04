@@ -22,7 +22,7 @@ export default {
     };
   },
   mounted() {
-    axios.get("http://localhost:4000/api/systems").then((res) => {
+    axios.get("http://88.85.198.5:4000/api/systems").then((res) => {
       console.log(res.data);
       this.$store.commit("addAllSystems", res.data); //ДОБАВИТЬ ВСЕ СИСТЕМЫ
     });
