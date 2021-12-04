@@ -43,6 +43,7 @@ export default {
     sendInputs() {
       axios.get(`http://88.85.198.5:4000/api/systems/${this.system.Id}/search?input=${this.Conditions}`).then((res) => {
       console.log(res.data);
+      alert(res.data.ResultText)
       //TODO: вывести результат не только в консоль!!!!!!
     });
     },
