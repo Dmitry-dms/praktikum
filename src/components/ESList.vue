@@ -30,8 +30,11 @@ export default {
   },
   methods: {
     addRow() {
+      let id = this.uuidv4();
+      console.log(id);
+      console.log(this.rows)
       let newObj = {
-        id: new Date().getTime(),
+        id: id,
         pos: this.rows.length + 1,
         condition: "",
         result: "",
@@ -40,6 +43,14 @@ export default {
     },
     addSystem() {
       this.$emit("addSystem", true);
+    },
+    uuidv4() {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+        (
+          c ^
+          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+        ).toString(16)
+      );
     },
   },
 };

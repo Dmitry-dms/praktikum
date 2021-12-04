@@ -2,7 +2,9 @@
   <div class="exp__system">
     <div class="name">
       <h3>{{ system.name }}</h3>
-     
+      <my-input v-model:value="this.conditions"/>
+      <my-button @click="sendInputs()"> Отправить</my-button>
+      <my-button @click="updateSystem()"> Сохранить</my-button>
     </div>
     <div class="head">
       <h3 style="margin-left: 50px">Условия</h3>
@@ -17,19 +19,20 @@
 
 <script>
 import EsList from "../components/ESList.vue";
-import MyButton from '../components/UI/MyButton.vue';
+import MyButton from "../components/UI/MyButton.vue";
+import axios from "axios";
 export default {
   components: { EsList, MyButton },
   data() {
     return {
       system: {},
-      conditions: ""
+      conditions: "",
     };
   },
   beforeMount() {
     let s = this.$store.getters.getSystems;
-    let id = Number(this.$route.params.id);
-    s.forEach((element) => { 
+    let id = this.$route.params.id;
+    s.forEach((element) => {
       if (element.id === id) {
         this.system = element;
       }
@@ -37,8 +40,27 @@ export default {
   },
 
   methods: {
-   
+    sendInputs() {
+      axios.get(`http://localhost:4000/api/systems/${this.system.id}/search?input=${this.conditions}`).then((res) => {
+      console.log(res.data);
+      //TODO: вывести результат не только в консоль!!!!!!
+    });
+    },
+    updateSystem() {
+      let sys = this.system;
+      async function makeGetRequest() {
+        let payload = { sys };
+
+        let res = await axios.post("http://localhost:4000/api/systems", payload);
+
+        let data = res.data;
+        console.log(data);
+      }
+
+      makeGetRequest();
+    },
     addRow(event) {
+      
       let newObj = {
         id: event.id,
         pos: event.pos,
@@ -70,6 +92,8 @@ export default {
 <style>
 .name {
   justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 .head {
   display: flex;

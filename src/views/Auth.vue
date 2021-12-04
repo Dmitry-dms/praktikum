@@ -12,7 +12,7 @@
 <script>
 import MyButton from "../components/UI/MyButton.vue";
 import MyInput from "../components/UI/MyInput.vue";
-import * as http from "http";
+import axios from "axios";
 export default {
   components: { MyInput, MyButton },
   data() {
@@ -22,11 +22,10 @@ export default {
     };
   },
   mounted() {
-    http.get("http://localhost:4000/api/subjects" | {"Access-Control-Allow-Origin": "*",}, (res) => {
-        console.log(res.content);  
-      }).on("error", (e) => {
-        console.error(`Got error: ${e.message}`);
-      });
+    axios.get("http://localhost:4000/api/systems").then((res) => {
+      console.log(res.data);
+      this.$store.commit("addAllSystems", res.data); //ДОБАВИТЬ ВСЕ СИСТЕМЫ
+    });
   },
 };
 </script>

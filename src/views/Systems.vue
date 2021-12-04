@@ -1,7 +1,9 @@
 <template>
   <div class="head">
     <h3 style="margin-left: 50px">Существующие системы</h3>
-    <my-button @click="$router.push('/exp-add-new')" class="add__btn">Add</my-button>
+    <my-button @click="$router.push('/exp-add-new')" class="add__btn"
+      >Add</my-button
+    >
   </div>
   <div class="divider">
     <hr class="solid" />
@@ -16,13 +18,23 @@ export default {
   methods: {
     addSystem() {
       let newSyst = {
-        id: new Date().getTime(),
+        id: this.uuidv4(),
         name: "",
       };
+      http.post("http://");
+      //отправить на сервер
       this.$emit("addSystem", newSyst);
     },
     deleteSystem(event) {
       this.$emit("deleteSystem", event);
+    },
+    uuidv4() {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+        (
+          c ^
+          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+        ).toString(16)
+      );
     },
   },
   props: {

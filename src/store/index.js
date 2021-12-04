@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import axios from "axios";
 
 export default createStore({
   state: {
@@ -7,12 +8,12 @@ export default createStore({
     systems: [
       // {
       //   name: 'test1',
-      //   id: new Date().getTime(),
-      //   rows: [
+      //   id: "",//uuid
+      //   rows: [//Object
       //     {
       //       pos: 0,
-      //       condition: '',
-      //       result: ''
+      //       condition: "",
+      //       result: ""
       //     }
       //   ]
       // }
@@ -28,11 +29,22 @@ export default createStore({
     },
     getAdmin(state) {
       return state.isAdmin
-    }
+    },
+    
   },
   //изменение состояний
   mutations: {
     addSystem(state, system) {
+      async function makeGetRequest() {
+        let payload = { system };
+
+        let res = await axios.post("http://localhost:4000/api/systems", payload);
+
+        let data = res.data;
+        console.log(data);
+      }
+
+      makeGetRequest();
       state.systems.push(system)
     },
     deleteSystem(state, system) {
@@ -43,6 +55,9 @@ export default createStore({
     },
     changeAdmin(state) {
       state.isAdmin = !state.isAdmin
+    },
+    addAllSystems(state, systems) {
+      state.systems = systems
     }
   },
   //получение данных с сервера -> мутация -> изменение state

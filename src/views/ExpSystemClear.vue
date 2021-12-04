@@ -27,7 +27,7 @@ export default {
         name: "",
         rows: [
           {
-            id: new Date().getTime(),
+            id: this.uuidv4(),
             pos: 1,
             condition: "",
             result: "",
@@ -46,8 +46,16 @@ export default {
       };
       this.system.rows.push(newObj);
     },
+    uuidv4() {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+        (
+          c ^
+          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+        ).toString(16)
+      );
+    },
     addSystem() {
-      this.system.id = new Date().getTime();
+      this.system.id = this.uuidv4();
       this.$store.commit("addSystem", this.system);
       this.$router.push('/')
     },
