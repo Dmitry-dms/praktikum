@@ -2,7 +2,7 @@
   <div class="exp__system">
     <div class="name">
       <h3>{{ system.Name }}</h3>
-      <my-input v-model:value="this.Conditions"/>
+      <my-input v-model:value="this.Conditions" />
       <my-button @click="sendInputs()"> Отправить</my-button>
       <my-button @click="updateSystem()"> Сохранить</my-button>
     </div>
@@ -41,28 +41,31 @@ export default {
 
   methods: {
     sendInputs() {
-      axios.get(`http://88.85.198.5:4000/api/systems/${this.system.Id}/search?input=${this.Conditions}`).then((res) => {
-      console.log(res.data);
-      alert(res.data.ResultText)
-      //TODO: вывести результат не только в консоль!!!!!!
-    });
+      axios
+        .get(
+          `http://88.85.198.5:4000/api/systems/${this.system.Id}/search?input=${this.Conditions}`
+        )
+        .then((res) => {
+          console.log(res.data);
+          alert(res.data.ResultText);
+          //TODO: вывести результат не только в консоль!!!!!!
+        });
     },
     updateSystem() {
       let sys = this.system;
-       console.log(sys);
-      async function makeGetRequest() {
+      console.log(sys);
+      // async function makeGetRequest() {
 
+      //let res = await
+      axios.patch("http://88.85.198.5:4000/api/systems", sys);
 
-        let res = await axios.patch("http://88.85.198.5:4000/api/systems", sys);
+      //let data = res.data;
 
-        let data = res.data;
-       
-      }
+      //}
 
-      makeGetRequest();
+      // makeGetRequest();
     },
     addRow(event) {
-      
       let newObj = {
         Id: event.Id,
         Position: event.Position,

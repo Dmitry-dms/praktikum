@@ -35,16 +35,16 @@ export default createStore({
   //изменение состояний
   mutations: {
     addSystem(state, system) {
-      async function makeGetRequest() {
+     // async function makeGetRequest() {
         let payload = { system };
+        //let res = await 
+       axios.post("http://88.85.198.5:4000/api/systems", payload);
 
-        let res = await axios.post("http://88.85.198.5:4000/api/systems", payload);
-
-        let data = res.data;
+       // let data = res.data;
         console.log(data);
-      }
+      //}
 
-      makeGetRequest();
+     // makeGetRequest();
       state.systems.push(system)
     },
     deleteSystem(state, system) {
