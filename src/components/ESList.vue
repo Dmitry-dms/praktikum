@@ -55,8 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.save__btn {
-}
+
 .add__btn {
   display: flex;
   margin-left: auto;

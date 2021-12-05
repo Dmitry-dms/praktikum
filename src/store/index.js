@@ -38,7 +38,7 @@ export default createStore({
       async function makeGetRequest() {
         let payload = { system };
 
-        let res = await axios.post("http://localhost:4000/api/systems", payload);
+        let res = await axios.post("http://88.85.198.5:4000/api/systems", payload);
 
         let data = res.data;
         console.log(data);

@@ -2,7 +2,11 @@
   <div class="exp__system">
     <div class="name">
       <h3>Введите название:</h3>
-      <my-input class="head__input" style="width: 50%" v-model:value="this.system.Name" />
+      <my-input
+        class="head__input"
+        style="width: 50%"
+        v-model:value="this.system.Name"
+      />
       <my-button class="add__btn" @click="addSystem">Save</my-button>
     </div>
     <div class="head">
@@ -57,7 +61,7 @@ export default {
     addSystem() {
       this.system.Id = this.uuidv4();
       this.$store.commit("addSystem", this.system);
-      this.$router.push('/')
+      this.$router.push("/");
     },
     deleteRow(event) {
       if (this.system.Rules.length !== 1) {
@@ -75,6 +79,7 @@ export default {
         });
       }
     },
+    
   },
 };
 </script>
