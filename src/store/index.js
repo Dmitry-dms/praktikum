@@ -36,9 +36,9 @@ export default createStore({
   mutations: {
     addSystem(state, system) {
      // async function makeGetRequest() {
-        let payload = { system };
+       // let payload = { system };
         //let res = await 
-       axios.post("http://88.85.198.5:4000/api/systems", payload);
+       axios.post("http://88.85.198.5:4000/api/systems", system);
 
        // let data = res.data;
         console.log(data);
