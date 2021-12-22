@@ -1,13 +1,18 @@
 <template>
   <div class="exp__system">
-    <my-dialog v-model:show="showDialog"> 
-      <log-form :results="results" :info="info"/>
+    <my-dialog v-model:show="showDialog">
+      <log-form :results="results" :info="info" />
     </my-dialog>
     <div class="name">
       <h3>{{ system.Name }}</h3>
       <my-input v-model:value="Conditions" />
       <my-button @click="sendInputs()"> Отправить</my-button>
-      <my-button v-if="$store.getters.getAdmin === true" @click="updateSystem()"> Сохранить</my-button>
+      <my-button
+        v-if="$store.getters.getAdmin === true"
+        @click="updateSystem()"
+      >
+        Сохранить</my-button
+      >
     </div>
     <div class="head">
       <h3 style="margin-left: 50px">Условия</h3>
@@ -26,18 +31,19 @@ import MyButton from "../components/UI/MyButton.vue";
 import MyDialog from "../components/UI/MyDialog.vue";
 import LogForm from "../components/LogForm.vue";
 import axios from "axios";
-import {ip} from "../store/index.js"
+import { ip } from "../store/index.js";
 export default {
-  components: { EsList, MyButton,MyDialog,LogForm },
+  components: { EsList, MyButton, MyDialog, LogForm },
   data() {
     return {
-      showDialog: true,
+      showDialog: false,
       system: {},
       Conditions: "",
       results: [],
-      info: ""
+      info: "",
     };
   },
+
   beforeMount() {
     let s = this.$store.getters.getSystems;
     let id = this.$route.params.id;
@@ -47,35 +53,36 @@ export default {
       }
     });
   },
-  mounted(){
-    this.sendInputs();
-  },
-
   methods: {
+    show() {
+      this.showDialog = !this.showDialog;
+    },
     sendInputs() {
-      let log = "Pass,Position,Input,Result\n0,0,рано встать\n1,1,рано встать,завести будильник\n"
-      let s = log.split("\n")
-     // console.log(s)
-      let items = []
-      for (let i = 1; i < s.length-1; i++) {
-        const element = s[i];
-        let element2 = element.split(",")
-        if (element2[3] === undefined) {
-          element2[3] = ''
-        }
-        items.push({"Pass":element2[0], "Position": element2[1], "Input":element2[2], "Result": element2[3]})
-      }
-      console.log(items);
-      this.results = items;
-      this.info = "kffff"
-      // axios.get(`http://${ip}/api/systems/${this.system.Id}/search?input=${this.Conditions}`)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     
-      //     this.info = res.data.ResultText;
-      //     //TODO: вывести результат не только в консоль!!!!!!
-      //   });
-      console.log(this.resulsts);
+      axios
+        .get(
+          `http://${ip}/api/systems/${this.system.Id}/search?input=${this.Conditions}`
+        )
+        .then((res) => {
+          console.log(res.data);
+          this.info = res.data.ResultText;
+          let items = [];
+          for (let i = 1; i < s.length - 1; i++) {
+            const element = s[i];
+            let element2 = element.split(",");
+            if (element2[3] === undefined) {
+              element2[3] = "";
+            }
+
+            items.push({
+              el1: element2[0],
+              el2: element2[1],
+              el3: element2[2],
+              el4: element2[3],
+            });
+          }
+          this.results = items;
+        });
+      this.show();
     },
     updateSystem() {
       let sys = this.system;

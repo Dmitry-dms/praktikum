@@ -3,15 +3,31 @@
   <form @submit.prevent>
     <h4>{{ info }}</h4>
     <div class="div">
-      <SimpleTable :rows="resulsts" />
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Pass</th>
+            <th>Position</th>
+            <th>Input</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, i) in this.results" :key="i">
+            <th scope="row">{{ row.el1 }}</th>
+            <td>{{ row.el2 }}</td>
+            <td>{{ row.el3 }}</td>
+            <td>{{ row.el4 }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </form>
 </template>
 
 <script>
-import { SimpleTable } from "simple-table-vue";
 export default {
-  components: [SimpleTable],
+  components: [],
   props: {
     results: { Array },
     info: { String },
@@ -33,5 +49,10 @@ form {
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
+}
+td,
+th {
+  border: 1px solid red;
+  padding: 10px;
 }
 </style>
