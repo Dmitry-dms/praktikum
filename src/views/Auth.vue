@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import {ip} from "../store/index.js"
 import MyButton from "../components/UI/MyButton.vue";
 import MyInput from "../components/UI/MyInput.vue";
 import axios from "axios";
@@ -22,7 +23,7 @@ export default {
     };
   },
   mounted() {
-    axios.get("http://88.85.198.5:4000/api/systems").then((res) => {
+    axios.get(`http://${ip}/api/systems`).then((res) => {
       console.log(res.data);
       this.$store.commit("addAllSystems", res.data); //ДОБАВИТЬ ВСЕ СИСТЕМЫ
     });

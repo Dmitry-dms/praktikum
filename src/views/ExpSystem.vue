@@ -21,6 +21,7 @@
 import EsList from "../components/ESList.vue";
 import MyButton from "../components/UI/MyButton.vue";
 import axios from "axios";
+import {ip} from "../store/index.js"
 export default {
   components: { EsList, MyButton },
   data() {
@@ -41,10 +42,7 @@ export default {
 
   methods: {
     sendInputs() {
-      axios
-        .get(
-          `http://88.85.198.5:4000/api/systems/${this.system.Id}/search?input=${this.Conditions}`
-        )
+      axios.get(`http://${ip}/api/systems/${this.system.Id}/search?input=${this.Conditions}`)
         .then((res) => {
           console.log(res.data);
           alert(res.data.ResultText);
@@ -54,16 +52,7 @@ export default {
     updateSystem() {
       let sys = this.system;
       console.log(sys);
-      // async function makeGetRequest() {
-
-      //let res = await
-      axios.patch("http://88.85.198.5:4000/api/systems", sys);
-
-      //let data = res.data;
-
-      //}
-
-      // makeGetRequest();
+      axios.patch(`http://${ip}/api/systems`, sys);
     },
     addRow(event) {
       let newObj = {
