@@ -38,10 +38,11 @@ export default createStore({
   mutations: {
     addSystem(state, system) {
       axios.post(`http://${ip}/api/systems`, system);
-      console.log(data);
+     // console.log(data);
       state.systems.push(system)
     },
     deleteSystem(state, system) {
+      axios.delete(`http://${ip}/api/systems/${system.Id}`, system);
       state.systems = state.systems.filter(s => s.Id !== system.Id)
     },
     changeAuth(state) {

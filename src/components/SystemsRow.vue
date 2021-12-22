@@ -4,7 +4,7 @@
       <h3>{{ system.Name }}</h3>
     </div>
 
-    <my-button @click="$store.commit('deleteSystem',system)" class="system__btns">Delete</my-button> 
+    <my-button v-if="$store.getters.getAdmin === true" @click="$store.commit('deleteSystem',system)" class="system__btns">Delete</my-button> 
     <!-- <my-button @click="$emit('deleteSystem', system)" class="system__btns"
       >Delete</my-button
     > -->

@@ -4,7 +4,7 @@
       <h3>{{ system.Name }}</h3>
       <my-input v-model:value="this.Conditions" />
       <my-button @click="sendInputs()"> Отправить</my-button>
-      <my-button @click="updateSystem()"> Сохранить</my-button>
+      <my-button v-if="$store.getters.getAdmin === true" @click="updateSystem()"> Сохранить</my-button>
     </div>
     <div class="head">
       <h3 style="margin-left: 50px">Условия</h3>

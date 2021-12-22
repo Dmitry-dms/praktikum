@@ -3,7 +3,7 @@
     <h1>Авторизация</h1>
     <my-input v-model:value="this.login" />
     <my-input style="margin-top: 15px" v-model:value="this.password" />
-    <my-button @click="$store.commit('changeAuth')" style="margin-top: 15px"
+    <my-button @click="checkIsAdmin()" style="margin-top: 15px"
       >Войти</my-button
     >
   </div>
@@ -22,9 +22,22 @@ export default {
       password: "",
     };
   },
+  methods: {
+    checkIsAdmin(){
+      if (this.login === "admin" && this.password === "admin"){
+        this.$store.commit('changeAdmin')
+        this.$store.commit('changeAuth')
+      } else {
+        this.$store.commit('changeAuth')
+      }
+    }
+  },
   mounted() {
     axios.get(`http://${ip}/api/systems`).then((res) => {
       console.log(res.data);
+      res.data.forEach(element => {
+        element.Rules.sort((prev,next)=>prev.Position-next.Position);
+      });
       this.$store.commit("addAllSystems", res.data); //ДОБАВИТЬ ВСЕ СИСТЕМЫ
     });
   },

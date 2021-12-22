@@ -10,7 +10,7 @@
     />
   </transition-group>
 
-  <my-button class="add__btn" @click="addRow">ADD</my-button>
+  <my-button v-if="$store.getters.getAdmin === true" class="add__btn" @click="addRow">ADD</my-button>
   <!-- <my-button class="save__btn" @click="addSystem">Save</my-button> -->
 </template>
 

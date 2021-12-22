@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <my-button @click="$emit('delete', row)" class="row__btns"
+    <my-button v-if="$store.getters.getAdmin === true" @click="$emit('delete', row)" class="row__btns"
       >Delete</my-button
     >
     <!-- <div class="row__btns">
