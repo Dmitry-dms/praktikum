@@ -29,6 +29,7 @@ export default {
         this.$store.commit('changeAuth')
       } else {
         this.$store.commit('changeAuth')
+        this.$store.commit('changeAdmin')
       }
     }
   },

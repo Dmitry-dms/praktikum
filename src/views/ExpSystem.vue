@@ -1,8 +1,11 @@
 <template>
   <div class="exp__system">
+    <my-dialog v-model:show="showDialog"> 
+      <log-form :results="results" :info="info"/>
+    </my-dialog>
     <div class="name">
       <h3>{{ system.Name }}</h3>
-      <my-input v-model:value="this.Conditions" />
+      <my-input v-model:value="Conditions" />
       <my-button @click="sendInputs()"> Отправить</my-button>
       <my-button v-if="$store.getters.getAdmin === true" @click="updateSystem()"> Сохранить</my-button>
     </div>
@@ -20,14 +23,19 @@
 <script>
 import EsList from "../components/ESList.vue";
 import MyButton from "../components/UI/MyButton.vue";
+import MyDialog from "../components/UI/MyDialog.vue";
+import LogForm from "../components/LogForm.vue";
 import axios from "axios";
 import {ip} from "../store/index.js"
 export default {
-  components: { EsList, MyButton },
+  components: { EsList, MyButton,MyDialog,LogForm },
   data() {
     return {
+      showDialog: true,
       system: {},
       Conditions: "",
+      results: [],
+      info: ""
     };
   },
   beforeMount() {
@@ -39,15 +47,35 @@ export default {
       }
     });
   },
+  mounted(){
+    this.sendInputs();
+  },
 
   methods: {
     sendInputs() {
-      axios.get(`http://${ip}/api/systems/${this.system.Id}/search?input=${this.Conditions}`)
-        .then((res) => {
-          console.log(res.data);
-          alert(res.data.ResultText);
-          //TODO: вывести результат не только в консоль!!!!!!
-        });
+      let log = "Pass,Position,Input,Result\n0,0,рано встать\n1,1,рано встать,завести будильник\n"
+      let s = log.split("\n")
+     // console.log(s)
+      let items = []
+      for (let i = 1; i < s.length-1; i++) {
+        const element = s[i];
+        let element2 = element.split(",")
+        if (element2[3] === undefined) {
+          element2[3] = ''
+        }
+        items.push({"Pass":element2[0], "Position": element2[1], "Input":element2[2], "Result": element2[3]})
+      }
+      console.log(items);
+      this.results = items;
+      this.info = "kffff"
+      // axios.get(`http://${ip}/api/systems/${this.system.Id}/search?input=${this.Conditions}`)
+      //   .then((res) => {
+      //     console.log(res.data);
+      //     
+      //     this.info = res.data.ResultText;
+      //     //TODO: вывести результат не только в консоль!!!!!!
+      //   });
+      console.log(this.resulsts);
     },
     updateSystem() {
       let sys = this.system;

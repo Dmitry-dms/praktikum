@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import components from '@/components/UI'
 
-
 const app = createApp(App)
 
 components.forEach(element => {
