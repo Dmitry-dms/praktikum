@@ -65,6 +65,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.info = res.data.ResultText;
+          let s = res.data.Log.split('\n')
           let items = [];
           for (let i = 1; i < s.length - 1; i++) {
             const element = s[i];
